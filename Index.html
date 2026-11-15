@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thanh 🦁 - Shop Acc & Túi Mù Game Uy Tín</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0218;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .gaming-gradient {
+            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #db2777 100%);
+        }
+        .card-bg {
+            background: rgba(30, 10, 55, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .card-bg:hover {
+            border-color: rgba(168, 85, 247, 0.8);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(219, 39, 119, 0.7), 0 0 20px rgba(124, 58, 237, 0.7);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER -->
+    <header class="bg-[#120426] border-b border-purple-900/50 sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('trang-chu')">
+                <div class="gaming-gradient p-2 rounded-xl text-2xl font-bold shadow-md">
+                    🦁
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-400 glow-text">
+                        thanh 🦁 GAMING
+                    </h1>
+                    <p class="text-xs text-purple-300">SHOP TÚI MÙ & ACC GAME UY TÍN</p>
+                </div>
+            </div>
+
+            <!-- User Status & Auth Buttons -->
+            <div class="flex items-center space-x-3 mt-2 sm:mt-0">
+                <div class="bg-purple-950/80 px-3 py-1.5 rounded-lg border border-purple-700/50 flex items-center space-x-2 text-sm">
+                    <i class="fa-solid fa-wallet text-yellow-400"></i>
+                    <span>Số dư: <strong id="user-balance" class="text-yellow-400">0đ</strong></span>
+                </div>
+                <div id="auth-section">
+                    <button onclick="openModal('login-modal')" class="gaming-gradient px-4 py-1.5 rounded-lg font-bold text-sm shadow hover:opacity-90 transition">
+                        <i class="fa-solid fa-right-to-bracket mr-1"></i> Đăng nhập
+                    </button>
+                </div>
+                <div id="user-logged" class="hidden flex items-center space-x-2">
+                    <span id="username-display" class="text-sm font-semibold text-pink-300"></span>
+                    <button onclick="logout()" class="bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-lg text-sm transition">Đăng xuất</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVBAR -->
+        <nav class="bg-[#190635] border-t border-purple-900/40">
+            <div class="container mx-auto px-4 flex overflow-x-auto space-x-2 py-2 text-sm no-scrollbar">
+                <button onclick="switchTab('trang-chu')" class="nav-btn px-4 py-2 rounded-lg font-semibold bg-purple-700 text-white transition flex items-center space-x-2 whitespace-nowrap"><i class="fa-solid fa-house"></i><span>Trang chủ</span></button>
+                <button onclick="switchTab('tui-mu-ff')" class="nav-btn px-4 py-2 rounded-lg font-semibold hover:bg-purple-800/60 text-purple-200 transition flex items-center space-x-2 whitespace-nowrap"><i class="fa-solid fa-box-open"></i><span>Túi Mù Free Fire</span></button>
+                <button onclick="switchTab('tui-mu-lq')" class="nav-btn px-4 py-2 rounded-lg font-semibold hover:bg-purple-800/60 text-purple-200 transition flex items-center space-x-2 whitespace-nowrap"><i class="fa-solid fa-gift"></i><span>Túi Mù Liên Quân</span></button>
+                <button onclick="switchTab('nap-the')" class="nav-btn px-4 py-2 rounded-lg font-semibold hover:bg-purple-800/60 text-purple-200 transition flex items-center space-x-2 whitespace-nowrap"><i class="fa-solid fa-credit-card"></i><span>Nạp Thẻ Cào</span></button>
+                <button onclick="switchTab('nap-game')" class="nav-btn px-4 py-2 rounded-lg font-semibold hover:bg-purple-800/60 text-purple-200 transition flex items-center space-x-2 whitespace-nowrap"><i class="fa-solid fa-gamepad"></i><span>Nạp Game</span></button>
+                <button onclick="switchTab('lich-su')" class="nav-btn px-4 py-2 rounded-lg font-semibold hover:bg-purple-800/60 text-purple-200 transition flex items-center space-x-2 whitespace-nowrap"><i class="fa-solid fa-clock-rotate-left"></i><span>Lịch sử giao dịch</span></button>
+                <button onclick="switchTab('admin-tab')" class="nav-btn px-4 py-2 rounded-lg font-semibold hover:bg-purple-800/60 text-yellow-300 transition flex items-center space-x-2 whitespace-nowrap"><i class="fa-solid fa-user-shield"></i><span>Admin Panel</span></button>
+                <a href="https://zalo.me/0933454413" target="_blank" class="px-4 py-2 rounded-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white transition flex items-center space-x-2 whitespace-nowrap"><i class="fa-solid fa-headset"></i><span>Zalo: 0933454413</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="container mx-auto px-4 py-6 flex-grow">
+
+        <!-- TAB: TRANG CHỦ -->
+        <div id="tab-trang-chu" class="tab-content space-y-6">
+            <!-- Banner -->
+            <div class="relative rounded-2xl overflow-hidden gaming-gradient p-8 md:p-12 shadow-2xl border border-purple-500/30 flex flex-col md:flex-row items-center justify-between">
+                <div class="z-10 max-w-xl space-y-4 text-center md:text-left">
+                    <span class="bg-yellow-400 text-black text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">🔥 Hot Trend 2026</span>
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-wide text-white drop-shadow-lg">SHOP THANH 🦁 GAMING</h2>
+                    <p class="text-purple-100 text-sm md:text-base">Chuyên cung cấp Túi Mù Free Fire, Túi Mù Liên Quân siêu hời, nạp thẻ cào tự động, nạp game uy tín chiết khấu cao nhất!</p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+                        <button onclick="switchTab('tui-mu-ff')" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-3 rounded-xl shadow-lg transition transform hover:scale-105">Khám phá Túi Mù FF</button>
+                        <button onclick="switchTab('nap-the')" class="bg-purple-900/80 hover:bg-purple-800 text-white font-bold px-6 py-3 rounded-xl border border-purple-400/50 shadow-lg transition">Nạp Thẻ Ngay</button>
+                    </div>
+                </div>
+                <div class="mt-6 md:mt-0 z-10 text-center">
+                    <div class="w-32 h-32 md:w-48 md:h-48 mx-auto rounded-full gaming-gradient flex items-center justify-center shadow-2xl border-4 border-yellow-400 animate-pulse">
+                        <span class="text-6xl md:text-8xl">🦁</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Quick Info -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="card-bg p-5 rounded-xl flex items-center space-x-4">
+                    <div class="bg-purple-600/30 p-4 rounded-xl text-pink-400 text-2xl"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg">An Toàn Bảo Mật</h4>
+                        <p class="text-xs text-gray-400">Hệ thống bảo mật tuyệt đối 100%</p>
+                    </div>
+                </div>
+                <div class="card-bg p-5 rounded-xl flex items-center space-x-4">
+                    <div class="bg-purple-600/30 p-4 rounded-xl text-yellow-400 text-2xl"><i class="fa-solid fa-bolt"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg">Giao Dịch Siêu Tốc</h4>
+                        <p class="text-xs text-gray-400">Duyệt thẻ và giao dịch chỉ trong vài giây</p>
+                    </div>
+                </div>
+                <div class="card-bg p-5 rounded-xl flex items-center space-x-4">
+                    <div class="bg-purple-600/30 p-4 rounded-xl text-blue-400 text-2xl"><i class="fa-solid fa-headset"></i></div>
+                    <div>
+                        <h4 class="font-bold text-lg">Hỗ Trợ 24/7</h4>
+                        <p class="text-xs text-gray-400">Hotline/Zalo: 0933454413</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nổi bật -->
+            <div>
+                <h3 class="text-xl font-bold mb-4 flex items-center"><i class="fa-solid fa-fire text-yellow-400 mr-2"></i> Túi Mù Free Fire & Liên Quân Bán Chạy</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="card-bg rounded-xl p-4 flex flex-col justify-between text-center">
+                        <div class="bg-purple-900/40 h-32 rounded-lg flex items-center justify-center mb-3 text-4xl">🎁</div>
+                        <h4 class="font-bold text-pink-300">Túi Mù FF 49K</h4>
+                        <p class="text-xs text-gray-400 my-1">Cơ hội trúng Acc VIP 999k skin hiếm</p>
+                        <button onclick="buyBlindBox('Free Fire', 49000)" class="mt-3 bg-pink-600 hover:bg-pink-700 py-2 rounded-lg font-bold text-sm transition">MUA NGAY (49.000đ)</button>
+                    </div>
+                    <div class="card-bg rounded-xl p-4 flex flex-col justify-between text-center">
+                        <div class="bg-purple-900/40 h-32 rounded-lg flex items-center justify-center mb-3 text-4xl">🎁</div>
+                        <h4 class="font-bold text-pink-300">Túi Mù FF 99K</h4>
+                        <p class="text-xs text-gray-400 my-1">Tỷ lệ trúng quân huy & skin cực cao</p>
+                        <button onclick="buyBlindBox('Free Fire', 99000)" class="mt-3 bg-pink-600 hover:bg-pink-700 py-2 rounded-lg font-bold text-sm transition">MUA NGAY (99.000đ)</button>
+                    </div>
+                    <div class="card-bg rounded-xl p-4 flex flex-col justify-between text-center">
+                        <div class="bg-purple-900/40 h-32 rounded-lg flex items-center justify-center mb-3 text-4xl">🏆</div>
+                        <h4 class="font-bold text-pink-300">Túi Mù LQ 299K</h4>
+                        <p class="text-xs text-gray-400 my-1">Acc Liên Quân Full Tướng SS Hữu Hạn</p>
+                        <button onclick="buyBlindBox('Liên Quân', 299000)" class="mt-3 bg-pink-600 hover:bg-pink-700 py-2 rounded-lg font-bold text-sm transition">MUA NGAY (299.000đ)</button>
+                    </div>
+                    <div class="card-bg rounded-xl p-4 flex flex-col justify-between text-center">
+                        <div class="bg-purple-900/40 h-32 rounded-lg flex items-center justify-center mb-3 text-4xl">👑</div>
+                        <h4 class="font-bold text-yellow-300">Túi Mù LQ 999K</h4>
+                        <p class="text-xs text-gray-400 my-1">Siêu phẩm Acc Rank Cao Thủ Full Skin</p>
+                        <button onclick="buyBlindBox('Liên Quân', 999000)" class="mt-3 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-2 rounded-lg text-sm transition">MUA NGAY (999.000đ)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: TÚI MÙ FREE FIRE -->
+        <div id="tab-tui-mu-ff" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-black text-pink-400 uppercase border-b border-purple-800 pb-2"><i class="fa-solid fa-box-open mr-2"></i> Danh Mục Túi Mù Free Fire</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- 49k -->
+                <div class="card-bg p-5 rounded-2xl flex flex-col justify-between text-center">
+                    <div>
+                        <div class="bg-purple-800/40 h-40 rounded-xl flex items-center justify-center text-5xl mb-4">🎁</div>
+                        <h3 class="text-xl font-bold text-pink-300">Túi Mù FF 49K</h3>
+                        <p class="text-sm text-gray-300 mt-2">Mở ra acc ngẫu nhiên từ tân thủ đến rank kim cương.</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="text-yellow-400 font-bold text-lg mb-3">49.000đ</div>
+                        <button onclick="buyBlindBox('Free Fire', 49000)" class="w-full gaming-gradient py-2.5 rounded-xl font-bold shadow hover:opacity-90">MỞ TÚI NGAY</button>
+                    </div>
+                </div>
+                <!-- 99k -->
+                <div class="card-bg p-5 rounded-2xl flex flex-col justify-between text-center border-pink-500/50">
+                    <div>
+                        <div class="bg-purple-800/40 h-40 rounded-xl flex items-center justify-center text-5xl mb-4">🎁</div>
+                        <h3 class="text-xl font-bold text-pink-300">Túi Mù FF 99K</h3>
+                        <p class="text-sm text-gray-300 mt-2">Cơ hội trúng acc có skin súng nâng cấp và trang phục đẹp.</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="text-yellow-400 font-bold text-lg mb-3">99.000đ</div>
+                        <button onclick="buyBlindBox('Free Fire', 99000)" class="w-full gaming-gradient py-2.5 rounded-xl font-bold shadow hover:opacity-90">MỞ TÚI NGAY</button>
+                    </div>
+                </div>
+                <!-- 299k -->
+                <div class="card-bg p-5 rounded-2xl flex flex-col justify-between text-center">
+                    <div>
+                        <div class="bg-purple-800/40 h-40 rounded-xl flex items-center justify-center text-5xl mb-4">💎</div>
+                        <h3 class="text-xl font-bold text-pink-300">Túi Mù FF 299K</h3>
+                        <p class="text-sm text-gray-300 mt-2">Acc VIP tỷ lệ cao có MP40 Mãng Xà, Thẻ Vô Cực các mùa.</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="text-yellow-400 font-bold text-lg mb-3">299.000đ</div>
+                        <button onclick="buyBlindBox('Free Fire', 299000)" class="w-full gaming-gradient py-2.5 rounded-xl font-bold shadow hover:opacity-90">MỞ TÚI NGAY</button>
+                    </div>
+                </div>
+                <!-- 999k -->
+                <div class="card-bg p-5 rounded-2xl flex flex-col justify-between text-center border-yellow-500/80 shadow-lg shadow-yellow-500/20">
+                    <div>
+                        <div class="bg-yellow-500/20 h-40 rounded-xl flex items-center justify-center text-5xl mb-4">👑</div>
+                        <h3 class="text-xl font-bold text-yellow-300">Túi Mù FF 999K</h3>
+                        <p class="text-sm text-gray-300 mt-2">Siêu phẩm túi mù! 100% trúng acc Siêu VIP rank Thách Đấu.</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="text-yellow-400 font-bold text-lg mb-3">999.000đ</div>
+                        <button onclick="buyBlindBox('Free Fire', 999000)" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-2.5 rounded-xl font-bold shadow">MỞ TÚI NGAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: TÚI MÙ LIÊN QUÂN -->
+        <div id="tab-tui-mu-lq" class="tab-content hidden space-y-6">
+            <h2 class="text-2xl font-black text-yellow-400 uppercase border-b border-purple-800 pb-2"><i class="fa-solid fa-gift mr-2"></i> Danh Mục Túi Mù Liên Quân</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- 49k -->
+                <div class="card-bg p-5 rounded-2xl flex flex-col justify-between text-center">
+                    <div>
+                        <div class="bg-purple-800/40 h-40 rounded-xl flex items-center justify-center text-5xl mb-4">📦</div>
+                        <h3 class="text-xl font-bold text-yellow-300">Túi Mù LQ 49K</h3>
+                        <p class="text-sm text-gray-300 mt-2">Acc Liên Quân khởi đầu ngon nghẻ, đủ tướng cơ bản.</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="text-yellow-400 font-bold text-lg mb-3">49.000đ</div>
+                        <button onclick="buyBlindBox('Liên Quân', 49000)" class="w-full gaming-gradient py-2.5 rounded-xl font-bold shadow hover:opacity-90">MỞ TÚI NGAY</button>
+                    </div>
+                </div>
+                <!-- 99k -->
+                <div class="card-bg p-5 rounded-2xl flex flex-col justify-between text-center">
+                    <div>
+                        <div class="bg-purple-800/40 h-40 rounded-xl flex items-center justify-center text-5xl mb-4">📦</div>
+                        <h3 class="text-xl font-bold text-yellow-300">Túi Mù LQ 99K</h3>
+                        <p class="text-sm text-gray-300 mt-2">Acc có skin bậc S, SS hữu hạn ngẫu nhiên.</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="text-yellow-400 font-bold text-lg mb-3">99.000đ</div>
+                        <button onclick="buyBlindBox('Liên Quân', 99000)" class="w-full gaming-gradient py-2.5 rounded-xl font-bold shadow hover:opacity-90">MỞ TÚI NGAY</button>
+                    </div>
+                </div>
+                <!-- 299k -->
+                <div class="card-bg p-5 rounded-2xl flex flex-col justify-between text-center">
+                    <div>
+                        <div class="bg-purple-800/40 h-40 rounded-xl flex items-center justify-center text-5xl mb-4">🛡️</div>
+                        <h3 class="text-xl font-bold text-yellow-300">Túi Mù LQ 299K</h3>
+                        <p class="text-sm text-gray-300 mt-2">Acc rank Siêu Sao, nhiều bảng ngọc chuẩn và skin hot.</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="text-yellow-400 font-bold text-lg mb-3">299.000đ</div>
+                        <button onclick="buyBlindBox('Liên Quân', 299000)" class="w-full gaming-gradient py-2.5 rounded-xl font-bold shadow hover:opacity-90">MỞ TÚI NGAY</button>
+                    </div>
+                </div>
+                <!-- 999k -->
+                <div class="card-bg p-5 rounded-2xl flex flex-col justify-between text-center border-yellow-500/80 shadow-lg shadow-yellow-500/20">
+                    <div>
+                        <div class="bg-yellow-500/20 h-40 rounded-xl flex items-center justify-center text-5xl mb-4">👑</div>
+                        <h3 class="text-xl font-bold text-yellow-300">Túi Mù LQ 999K</h3>
+                        <p class="text-sm text-gray-300 mt-2">Siêu phẩm Cao Thủ, Full Tướng, Full Skin Tuyệt Sắc / SS.</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="text-yellow-400 font-bold text-lg mb-3">999.000đ</div>
+                        <button onclick="buyBlindBox('Liên Quân', 999000)" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-2.5 rounded-xl font-bold shadow">MỞ TÚI NGAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: NẠP THẺ CÀO -->
+        <div id="tab-nap-the" class="tab-content hidden max-w-xl mx-a
